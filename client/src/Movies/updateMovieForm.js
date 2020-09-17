@@ -23,6 +23,16 @@ const handleChanges = (e) => {
     })
 }
 
+const submitChange = e => {
+    e.preventDefault
+    axios
+        .put(`http://localhost:5000/api/movies/${id}`, someMovie)
+        .then((res) => {
+            history.push(`/movies/${id}`) //redirect to page with newly updated movie
+        })
+
+}
+
     return (
         <form>
             <input 
@@ -53,7 +63,7 @@ const handleChanges = (e) => {
             value = {Movie.stars}
             />
 
-            <button>Submit</button>
+            <button onClick = {submitChange}>Submit</button>
         </form>
     )
 }
