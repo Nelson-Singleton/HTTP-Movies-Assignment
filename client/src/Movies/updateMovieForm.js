@@ -16,7 +16,7 @@ const UpdateMovieForm = (props) => {
     const [someMovie, setSomeMovie] =  useState(initialMovie)
 
 const handleChanges = (e) => {
-    e.preventDefault
+    e.preventDefault()
     setSomeMovie({
         ...someMovie,
             [e.target.name]: e.target.value
@@ -24,13 +24,13 @@ const handleChanges = (e) => {
 }
 
 const submitChange = e => {
-    e.preventDefault
+    e.preventDefault()
     axios
         .put(`http://localhost:5000/api/movies/${id}`, someMovie)
         .then((res) => {
-            history.push(`/movies/${id}`) //redirect to page with newly updated movie
+            setSomeMovie(initialMovie)//resets state to initial values
+            history.push(`/movies/${id}`) //redirects to page with newly updated movie
         })
-
 }
 
     return (
@@ -40,6 +40,7 @@ const submitChange = e => {
             name = 'title'
             onChange = {handleChanges}
             value = {Movie.title}
+            placeholder = "Movie Name"
             />
 
             <input 
@@ -47,6 +48,7 @@ const submitChange = e => {
             name = 'director'
             onChange = {handleChanges}
             value = {Movie.director}
+            placeholder = "Movie Director"
             />
 
             <input 
@@ -54,6 +56,7 @@ const submitChange = e => {
             name = 'metascore'
             onChange = {handleChanges}
             value = {Movie.metascore}
+            placeholder = "Movie Metascore"
             />
 
             <input 
@@ -61,9 +64,12 @@ const submitChange = e => {
             name = 'stars'
             onChange = {handleChanges}
             value = {Movie.stars}
+            placeholder = "Starring"
             />
 
             <button onClick = {submitChange}>Submit</button>
         </form>
     )
 }
+
+export default UpdateMovieForm
