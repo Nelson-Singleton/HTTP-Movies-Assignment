@@ -6,10 +6,13 @@ import Movie from "./Movies/Movie";
 import axios from 'axios';
 
 import UpdateMovieForm from './Movies/updateMovieForm'
+import AddMovie from './Movies/addMovie'
+import {useHistory} from 'react-router-dom'
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
+  const history = useHistory()
 
   const getMovieList = () => {
     axios
@@ -26,8 +29,13 @@ const App = () => {
     getMovieList();
   }, []);
 
+  const addMovieButton = e => {
+    e.preventDefault()
+    history.push('/add-movie')
+  }
+
   return (
-    <>
+    <><button onClick = {addMovieButton}>Add a movie</button>
       <SavedList list={savedList} />
 
       <Route exact path="/">
@@ -42,8 +50,13 @@ const App = () => {
       path = "/update-movie/:id"
       render = {() => <UpdateMovieForm />}
       >
-        
       </Route>
+      <Route
+      path = '/add-movie'
+      render = {() => <AddMovie />}
+      ></Route>
+        
+      
     </>
   );
 };
