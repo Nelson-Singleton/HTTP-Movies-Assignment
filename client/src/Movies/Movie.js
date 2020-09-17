@@ -32,6 +32,19 @@ function Movie({ addToSavedList }) {
     e.preventDefault()
     history.push(`/update-movie/${movie.id}`)
   }
+
+  const deleteButton = e => {
+    e.preventDefault()
+    axios 
+      .delete(`http://localhost:5000/api/movies/${movie.id}`)
+      .then(res => {
+        console.log(res, "Movie deleted ")
+        history.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
@@ -40,6 +53,7 @@ function Movie({ addToSavedList }) {
         Save
       </div>
       <button onClick = {newRouteButton}>Change Movie</button>
+      <button onClick = {deleteButton}>Delete Movie</button>
     </div>
   );
 }

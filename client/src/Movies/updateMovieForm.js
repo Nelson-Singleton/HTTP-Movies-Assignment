@@ -23,14 +23,30 @@ const handleChanges = (e) => {
     })
 }
 
+useEffect(() => {
+    axios
+        .get(`http://localhost:5000/api/movies/${id}`)
+        .then((res) => {
+            console.log(res, "Get response works")
+            setSomeMovie(res.data)
+        })
+},[id])
+
 const submitChange = e => {
     e.preventDefault()
     axios
         .put(`http://localhost:5000/api/movies/${id}`, someMovie)
         .then((res) => {
+            console.log(res)
             setSomeMovie(initialMovie)//resets state to initial values
             history.push(`/movies/${id}`) //redirects to page with newly updated movie
         })
+        .catch(err => {
+            console.log(err)
+        })
+        //.finally(res => {
+
+        //})
 }
 
     return (
